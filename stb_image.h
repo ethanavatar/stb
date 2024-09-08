@@ -4226,7 +4226,7 @@ static int stbi__zhuffman_decode_slowpath(stbi__zbuf *a, stbi__zhuffman *z)
    int b,s,k;
    // not resolved by fast table, so compute it the slow way
    // use jpeg approach, which requires MSbits at top
-   k = stbi__bit_reverse(a->code_buffer, 16);
+   k = stbi__bit_reverse((int) a->code_buffer, 16);
    for (s=STBI__ZFAST_BITS+1; ; ++s)
       if (k < z->maxcode[s])
          break;
@@ -4350,7 +4350,7 @@ static int stbi__parse_huffman_block(stbi__zbuf *a)
             stbi_uc v = *p;
             if (len) { do *zout++ = v; while (--len); }
          } else {
-            if (len) { do *zout++ = *p++; while (--len); }
+            if (len) { do *zout++ = (char) *p++; while (--len); }
          }
       }
    }
